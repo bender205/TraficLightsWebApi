@@ -1,0 +1,107 @@
+﻿
+<link rel="stylesheet" href="~/css/style.css">
+
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script>
+
+
+    "use strict";
+
+    var connection = new signalR.HubConnectionBuilder().withUrl("/lighthub").build();
+
+
+    connection.on("ReceiveColor", function (color) {
+        changeColor(color);
+    });
+
+
+
+    connection.start().then(function () {
+
+        document.getElementById("sendButton").addEventListener("click", function (event) {
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", '/Light/NextColor', true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                    console.log(xhr.responseText);
+                };
+            };
+
+            xhr.send();
+            event.preventDefault();
+        });
+
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+
+    var bulbs = document.getElementsByClassName('bulb');
+
+
+
+
+    function changeColor(color) {
+
+
+        if (color == 'red') {
+
+            //setTimeout(function () {
+            disableAllBulbs();
+            //}, 2000);
+
+            var red = document.getElementById("red");
+            //setTimeout(function () {
+            red.style.backgroundColor = color;
+            //}, 2000);
+
+        }
+        else if (color == 'yellow') {
+            //setTimeout(function () {
+            disableAllBulbs();
+            //}, 2000);
+            var green = document.getElementById("yellow");
+            //setTimeout(function () {
+            green.style.backgroundColor = color;
+            //}, 2000);
+
+
+
+        }
+        else if (color == 'green') {
+            //setTimeout(function () {
+            disableAllBulbs();
+            //}, 2000);
+            var green = document.getElementById("green");
+            //setTimeout(function () {
+            green.style.backgroundColor = color;
+            //}, 2000);
+
+        }
+    }
+
+
+    function disableAllBulbs() {
+        for (var i = 0; i < bulbs.length; i++) {
+            bulbs[i].style.backgroundColor = "grey";
+        }
+
+    }
+
+
+
+
+</script>
+
+<div id="traffic-light">
+    <input type="radio" name="traffic-light-color" class="bulb" id="red" value="color1" style="@(ViewBag.Color == "red" ? "background-color: red" : null)" />
+    <input type="radio" name="traffic-light-color" class="bulb" id="yellow" value="color2"  style="@(ViewBag.Color == "yellow" ? "background-color: yellow" : null)" />
+    <input type="radio" name="traffic-light-color" class="bulb" id="green" value="color3"  style="@(ViewBag.Color == "green" ? "background-color: green" : null)" />
+</div>
+
+@*<form method="post">
+    <input type="submit" id="sendButton" value="Next" />
+</form>*@
+

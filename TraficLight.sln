@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30330.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TraficLightsRazorPages", "TraficLightsRazorPages\TraficLightsRazorPages.csproj", "{E86D9037-198B-4940-84AD-C613F957F3EF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TraficLightsRazorPages.Models", "TraficLightsRazorPages.Models\TraficLightsRazorPages.Models.csproj", "{C174A7A8-38CB-4EF4-89B8-067E61E9A268}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TraficLightsRazorPages.Data", "DataAccess\TraficLightsRazorPages.Data.csproj", "{1602CE69-6704-41D5-872E-CA42BDC2679E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TraficLightsRazorPages.Core", "TraficLightsRazorPages.Core\TraficLightsRazorPages.Core.csproj", "{73D3E8D3-43A7-40CD-878C-213A8853F437}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "old", "old", "{67ED9A2A-C885-482B-90D7-4677A0475EA4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrafficLightApi", "TrafficLightApi\TrafficLightApi.csproj", "{0D9DAE11-0BE5-485D-B14C-91984047D6A9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E86D9037-198B-4940-84AD-C613F957F3EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E86D9037-198B-4940-84AD-C613F957F3EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E86D9037-198B-4940-84AD-C613F957F3EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E86D9037-198B-4940-84AD-C613F957F3EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C174A7A8-38CB-4EF4-89B8-067E61E9A268}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C174A7A8-38CB-4EF4-89B8-067E61E9A268}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C174A7A8-38CB-4EF4-89B8-067E61E9A268}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C174A7A8-38CB-4EF4-89B8-067E61E9A268}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1602CE69-6704-41D5-872E-CA42BDC2679E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1602CE69-6704-41D5-872E-CA42BDC2679E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1602CE69-6704-41D5-872E-CA42BDC2679E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1602CE69-6704-41D5-872E-CA42BDC2679E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73D3E8D3-43A7-40CD-878C-213A8853F437}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73D3E8D3-43A7-40CD-878C-213A8853F437}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73D3E8D3-43A7-40CD-878C-213A8853F437}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73D3E8D3-43A7-40CD-878C-213A8853F437}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D9DAE11-0BE5-485D-B14C-91984047D6A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D9DAE11-0BE5-485D-B14C-91984047D6A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D9DAE11-0BE5-485D-B14C-91984047D6A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D9DAE11-0BE5-485D-B14C-91984047D6A9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E86D9037-198B-4940-84AD-C613F957F3EF} = {67ED9A2A-C885-482B-90D7-4677A0475EA4}
+		{C174A7A8-38CB-4EF4-89B8-067E61E9A268} = {67ED9A2A-C885-482B-90D7-4677A0475EA4}
+		{1602CE69-6704-41D5-872E-CA42BDC2679E} = {67ED9A2A-C885-482B-90D7-4677A0475EA4}
+		{73D3E8D3-43A7-40CD-878C-213A8853F437} = {67ED9A2A-C885-482B-90D7-4677A0475EA4}
+		{0D9DAE11-0BE5-485D-B14C-91984047D6A9} = {67ED9A2A-C885-482B-90D7-4677A0475EA4}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F8A0F64C-033D-42AA-BC7A-100ED6D18A04}
+	EndGlobalSection
+EndGlobal
