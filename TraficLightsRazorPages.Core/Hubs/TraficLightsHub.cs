@@ -21,7 +21,7 @@ namespace TraficLightsRazorPages.Core.Hubs
         }
 
         public async Task SendColor()
-        {          
+        {      
 
            await _mediator.Send(new ChangeColorCommand());
         }

@@ -79,7 +79,8 @@ namespace TraficLightsRazorPages.Core.Workers
             }
             try
             {//TODO fix sending params
-                _hubContext.Clients.All.SendAsync("ReceiveColor", CurrentTrafficLight.Color.ToString(), CurrentTrafficLight.Id);
+                TrafficLightEntity hubLight = new TrafficLightEntity() { Id = CurrentTrafficLight.Id, Color = CurrentTrafficLight.Color, Date = CurrentTrafficLight.Date };
+                _hubContext.Clients.All.SendAsync("ReceiveColor",hubLight);
             }
 
             catch (Exception ex)
@@ -95,17 +96,10 @@ namespace TraficLightsRazorPages.Core.Workers
                 var services = serviceProvider.CreateScope().ServiceProvider;
                 var repository = services.GetRequiredService<TrafficLightRepository>();
                 var lightsContext = services.GetRequiredService<TraficLightsContext>();
-
-                var firstTraficLight = lightsContext.Lights.Where(l => l.Id == CurrentTrafficLight.Id).FirstOrDefault();
-                Console.WriteLine();
-
-              
+                var firstTraficLight = lightsContext.Lights.Where(l => l.Id == CurrentTrafficLight.Id).FirstOrDefault();            
                 firstTraficLight.Color = CurrentTrafficLight.Color;
                 firstTraficLight.Date = DateTime.Now;
                 await lightsContext.SaveChangesAsync();
-
-
-
             }
             catch (Exception ex)
             {
@@ -142,7 +136,7 @@ namespace TraficLightsRazorPages.Core.Workers
             {
                 CurrentTrafficLight.Color = Colors.Green;
             }
-            return;
+            return ;
         }
         
     }
