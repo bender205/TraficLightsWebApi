@@ -63,13 +63,13 @@ namespace TraficLightsRazorPages.Core.Workers
             }
             else if (CurrentTrafficLight.Color == Colors.Yellow && CurrentTrafficLight.IsSwitchingDown)
             {
-                CurrentTrafficLight.ColorSwitchTimer.Change(3000, Timeout.Infinite);
+                CurrentTrafficLight.ColorSwitchTimer.Change(2000, Timeout.Infinite);
                 CurrentTrafficLight.Color = Colors.Green;
                 CurrentTrafficLight.IsSwitchingDown = false;
             }
             else if (CurrentTrafficLight.Color == Colors.Yellow && !CurrentTrafficLight.IsSwitchingDown)
             {
-                CurrentTrafficLight.ColorSwitchTimer.Change(3000, Timeout.Infinite);
+                CurrentTrafficLight.ColorSwitchTimer.Change(2000, Timeout.Infinite);
                 CurrentTrafficLight.Color = Colors.Red;
             }
             else if (CurrentTrafficLight.Color == Colors.Green)
@@ -80,7 +80,7 @@ namespace TraficLightsRazorPages.Core.Workers
             try
             {//TODO fix sending params
                 TrafficLightEntity hubLight = new TrafficLightEntity() { Id = CurrentTrafficLight.Id, Color = CurrentTrafficLight.Color, Date = CurrentTrafficLight.Date };
-                _hubContext.Clients.All.SendAsync("ReceiveColor",hubLight);
+                _hubContext.Clients.All.SendAsync("ReceiveColor", hubLight);
             }
 
             catch (Exception ex)
@@ -136,6 +136,7 @@ namespace TraficLightsRazorPages.Core.Workers
             {
                 CurrentTrafficLight.Color = Colors.Green;
             }
+//TODO return Task.CompletedTask
             return ;
         }
         

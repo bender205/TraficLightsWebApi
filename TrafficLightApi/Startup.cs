@@ -39,7 +39,7 @@ namespace TrafficLightApi
             services.AddDbContext<TraficLightsContext>(options =>
                  options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")),
                  ServiceLifetime.Transient);
-         //   services.AddSingleton<TrafficLight>();
+            //   services.AddSingleton<TrafficLight>();
             //services.AddTransient<TrafficLight>();
             services.AddScoped<TrafficLight>();
             services.AddScoped<TrafficLightRepository>();
@@ -50,11 +50,11 @@ namespace TrafficLightApi
             {
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   builder =>
-                                  {
-                                      /* builder.AllowAnyOrigin()
-                                       .AllowAnyMethod()
-                                       .AllowAnyHeader();*/
-                                      builder.WithOrigins("http://localhost:4200");
+                                  {                                      
+                                      builder.WithOrigins("http://localhost:4200")
+                                      .AllowAnyMethod()
+                                        .AllowAnyHeader()
+                                        .AllowCredentials();
                                   });
             });//added this
 
