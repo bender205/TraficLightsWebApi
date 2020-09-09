@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TrafficLights.WorkerService\TrafficLights.WorkerService.csproj" />
     <ProjectReference Include="..\TraficLightsRazorPages.Core\TraficLightsRazorPages.Core.csproj" />
     <ProjectReference Include="..\TraficLightsRazorPages.Models\TraficLightsRazorPages.Models.csproj" />
   </ItemGroup>

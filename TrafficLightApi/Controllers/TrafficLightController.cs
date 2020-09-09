@@ -36,31 +36,36 @@ namespace TrafficLightApi.Controllers
         }
 
         // GET: api/<TrafficLight>
-        [HttpGet]
+      /*  [HttpGet]
         public ITrafficLight Get()
         {
             var data =
              new TrafficLightEntity() { Id = 1, Color = Colors.Yellow, Date = DateTime.UtcNow };
             return data;
-        }
+        }*/
 
         // GET api/<TrafficLight>/5
         [HttpGet("{id}")]
-        public ITrafficLight Get(int id)
+        public async Task<ITrafficLight> Get(int id)
         {
 
-            var traficLightByID = _repository.GetByIdAsync(id, CancellationToken.None).Result;
+            var traficLightById = await _repository.GetByIdAsync(id, CancellationToken.None);
 
-            if (traficLightByID is null)
+            if (traficLightById is null)
             {
-                traficLightByID = new TrafficLightEntity()
+                traficLightById = new TrafficLightEntity()
                 {
                     Color = Colors.Red,
                     Date = DateTime.Now
                 };
-                _repository.AddTrafficLight(traficLightByID, CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
+
+                await _repository.AddTrafficLightAsync(traficLightById, CancellationToken.None);
+
+
+                // TODO: remove this call
                 int lastId = _repository.GetMaxTraficLightsIdAsync(CancellationToken.None).Result;
                 _currentTrafficLight.Id = lastId;
+                
                 TraficLightsWorker.TrafficLightsList.Add(_currentTrafficLight);
                 _traficLightsWorker.CurrentTrafficLight = _currentTrafficLight;
                 _traficLightsWorker.SetCurrentColorFromDBAsync(CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
@@ -83,7 +88,7 @@ namespace TrafficLightApi.Controllers
             else
             {
                 TraficLightsWorker.TrafficLightsList.Add(_currentTrafficLight);
-                _currentTrafficLight.Id = traficLightByID.Id;
+                _currentTrafficLight.Id = traficLightById.Id;
                 _traficLightsWorker.CurrentTrafficLight = _currentTrafficLight;
                 _traficLightsWorker.SetCurrentColorFromDBAsync(CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
                 _traficLightsWorker.Activate();

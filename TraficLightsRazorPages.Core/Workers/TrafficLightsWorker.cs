@@ -82,7 +82,6 @@ namespace TraficLightsRazorPages.Core.Workers
                 TrafficLightEntity hubLight = new TrafficLightEntity() { Id = CurrentTrafficLight.Id, Color = CurrentTrafficLight.Color, Date = CurrentTrafficLight.Date };
                 _hubContext.Clients.All.SendAsync("ReceiveColor", hubLight);
             }
-
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
@@ -124,11 +123,11 @@ namespace TraficLightsRazorPages.Core.Workers
         public async Task SetCurrentColorFromDBAsync(CancellationToken cancellationToken)
         {
             var traficLights = await _repository.GetByIdAsync(CurrentTrafficLight.Id, cancellationToken).ConfigureAwait(false);
-            if (traficLights.Color.Equals("red"))
+            if (traficLights.Color == Colors.Red)
             {
                 CurrentTrafficLight.Color = Colors.Red;
             }
-            else if (traficLights.Color.Equals("yellow"))
+            else if (traficLights.Color == Colors.Yellow)
             {
                 CurrentTrafficLight.Color = Colors.Yellow;
             }

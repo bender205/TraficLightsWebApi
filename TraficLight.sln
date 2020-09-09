@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "old", "old", "{67ED9A2A-C88
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrafficLightApi", "TrafficLightApi\TrafficLightApi.csproj", "{0D9DAE11-0BE5-485D-B14C-91984047D6A9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrafficLights.Auth.API", "TrafficLights.Auth.API\TrafficLights.Auth.API.csproj", "{E1ED00EF-37CD-4178-917F-7BF5389D7DD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrafficLights.WorkerService", "TrafficLights.WorkerService\TrafficLights.WorkerService.csproj", "{7E1FAF40-F747-4191-986B-A72E0F620869}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +45,14 @@ Global
 		{0D9DAE11-0BE5-485D-B14C-91984047D6A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D9DAE11-0BE5-485D-B14C-91984047D6A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D9DAE11-0BE5-485D-B14C-91984047D6A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1ED00EF-37CD-4178-917F-7BF5389D7DD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1ED00EF-37CD-4178-917F-7BF5389D7DD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1ED00EF-37CD-4178-917F-7BF5389D7DD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1ED00EF-37CD-4178-917F-7BF5389D7DD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E1FAF40-F747-4191-986B-A72E0F620869}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E1FAF40-F747-4191-986B-A72E0F620869}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E1FAF40-F747-4191-986B-A72E0F620869}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E1FAF40-F747-4191-986B-A72E0F620869}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,6 +63,8 @@ Global
 		{1602CE69-6704-41D5-872E-CA42BDC2679E} = {67ED9A2A-C885-482B-90D7-4677A0475EA4}
 		{73D3E8D3-43A7-40CD-878C-213A8853F437} = {67ED9A2A-C885-482B-90D7-4677A0475EA4}
 		{0D9DAE11-0BE5-485D-B14C-91984047D6A9} = {67ED9A2A-C885-482B-90D7-4677A0475EA4}
+		{E1ED00EF-37CD-4178-917F-7BF5389D7DD3} = {67ED9A2A-C885-482B-90D7-4677A0475EA4}
+		{7E1FAF40-F747-4191-986B-A72E0F620869} = {67ED9A2A-C885-482B-90D7-4677A0475EA4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F8A0F64C-033D-42AA-BC7A-100ED6D18A04}

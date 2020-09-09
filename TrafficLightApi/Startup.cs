@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using TrafficLights.WorkerService;
 using TraficLightsRazorPages.Core.Hubs;
 using TraficLightsRazorPages.Core.Workers;
 using TraficLightsRazorPages.Data;
@@ -22,6 +23,7 @@ using TraficLightsRazorPages.Models;
 
 namespace TrafficLightApi
 {
+    
     public class Startup
     {
         readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";//added this
@@ -34,11 +36,11 @@ namespace TrafficLightApi
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
+        {           
             services.AddSignalR();
             services.AddDbContext<TraficLightsContext>(options =>
-                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")),
-                 ServiceLifetime.Transient);
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")),
+            ServiceLifetime.Transient);
             //   services.AddSingleton<TrafficLight>();
             //services.AddTransient<TrafficLight>();
             services.AddScoped<TrafficLight>();
@@ -64,6 +66,7 @@ namespace TrafficLightApi
             });
             services.AddMvc();
 
+            services.AddHostedService<Worker>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

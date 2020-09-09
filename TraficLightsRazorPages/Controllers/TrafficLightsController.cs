@@ -40,7 +40,7 @@ namespace TraficLightsRazorPages.Controllers
 					Color = Colors.Red,
 					Date = DateTime.Now
 				};
-				_repository.AddTrafficLight(traficLightByID, CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
+				_repository.AddTrafficLightAsync(traficLightByID, CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
 				int lastId = _repository.GetMaxTraficLightsIdAsync(CancellationToken.None).Result;
 				_currentTrafficLight.Id = lastId;
 				TraficLightsWorker.TrafficLightsList.Add(_currentTrafficLight);

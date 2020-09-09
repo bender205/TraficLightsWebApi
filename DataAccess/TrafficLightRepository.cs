@@ -23,11 +23,11 @@ namespace TraficLightsRazorPages.Data
         }
 
         // TODO there was public async void
-        public async Task AddTrafficLight(TrafficLightEntity traficLight, CancellationToken cancellationToken)
+        public async Task AddTrafficLightAsync(TrafficLightEntity traficLight, CancellationToken cancellationToken)
         {
-            await this._databaseContext.AddAsync(traficLight);
+            await _databaseContext.AddAsync(traficLight);
             //TODO is it a good practice? 
-            await this._databaseContext.SaveChangesAsync(cancellationToken);
+            await _databaseContext.SaveChangesAsync(cancellationToken);
         }
         public async Task<int> GetMaxTraficLightsIdAsync(CancellationToken cancellationToken)
         {
