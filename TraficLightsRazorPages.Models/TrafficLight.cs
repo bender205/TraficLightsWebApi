@@ -10,15 +10,8 @@ namespace TraficLightsRazorPages.Models
     {
         public int Id { get; set; } = 0;
         public Colors Color { get; set; } = Colors.Red;
-
-        private bool _switchingDown = true;
-        public bool IsSwitchingDown
-        {
-            get => this._switchingDown;
-            set => this._switchingDown = value;
-        }
+        public bool IsSwitchingDown { get; set; } = true;
         public DateTime? Date { get; set; } = DateTime.UtcNow;
-        public Timer ColorSwitchTimer { get; set; }
         public TrafficLight()
         {
         }

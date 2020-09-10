@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using TraficLightsRazorPages.Core.Workers;
+using Microsoft.Extensions.Hosting;
+using TrafficLights.WorkerService;
 using TraficLightsRazorPages.Data;
 using TraficLightsRazorPages.Models;
 using TraficLightsRazorPages.Models.Interfaces;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace TrafficLightApi.Controllers
 {
@@ -19,39 +17,33 @@ namespace TrafficLightApi.Controllers
     [ApiController]
     public class TrafficLightController : ControllerBase
     {
-        IServiceProvider Services
-        {
-            get;
-        }
-        private TrafficLight _currentTrafficLight;
-        private readonly TraficLightsWorker _traficLightsWorker;
+        IServiceProvider Services { get; }
+        private readonly TrafficLightsService _trafficLightsService;
         private readonly TrafficLightRepository _repository;
-
-        public TrafficLightController(IServiceProvider serviceProvider, TrafficLight trafficLight, TraficLightsWorker traficLightsWorker)
+        
+        public TrafficLightController(IServiceProvider serviceProvider, TrafficLight trafficLight, TrafficLightsService trafficLightsService)
         {
             Services = serviceProvider.CreateScope().ServiceProvider;
-            _repository = Services.GetRequiredService<TrafficLightRepository>();
-            _currentTrafficLight = trafficLight;
-            _traficLightsWorker = traficLightsWorker;
+            _repository = Services.GetRequiredService<TrafficLightRepository>();        
+            this._trafficLightsService = trafficLightsService;
         }
 
         // GET: api/<TrafficLight>
-      /*  [HttpGet]
-        public ITrafficLight Get()
-        {
-            var data =
-             new TrafficLightEntity() { Id = 1, Color = Colors.Yellow, Date = DateTime.UtcNow };
-            return data;
-        }*/
+        /*  [HttpGet]
+          public ITrafficLight Get()
+          {
+              var data =
+               new TrafficLightEntity() { Id = 1, Color = Colors.Yellow, Date = DateTime.UtcNow };
+              return data;
+          }*/
 
         // GET api/<TrafficLight>/5
         [HttpGet("{id}")]
         public async Task<ITrafficLight> Get(int id)
         {
-
             var traficLightById = await _repository.GetByIdAsync(id, CancellationToken.None);
 
-            if (traficLightById is null)
+            if (traficLightById == null)
             {
                 traficLightById = new TrafficLightEntity()
                 {
@@ -59,41 +51,23 @@ namespace TrafficLightApi.Controllers
                     Date = DateTime.Now
                 };
 
+                //TODO replace code below with Interface Realization 
                 await _repository.AddTrafficLightAsync(traficLightById, CancellationToken.None);
+                var trafficLightForService = new TrafficLight() { Id = traficLightById.Id, Color = traficLightById.Color, Date = traficLightById.Date, IsSwitchingDown = default };
+                _trafficLightsService.AddTrafficLight(trafficLightForService);
 
-
-                // TODO: remove this call
-                int lastId = _repository.GetMaxTraficLightsIdAsync(CancellationToken.None).Result;
-                _currentTrafficLight.Id = lastId;
-                
-                TraficLightsWorker.TrafficLightsList.Add(_currentTrafficLight);
-                _traficLightsWorker.CurrentTrafficLight = _currentTrafficLight;
-                _traficLightsWorker.SetCurrentColorFromDBAsync(CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
-                _traficLightsWorker.Activate();
-                //TODO to look if it's possible to simplifer this method
-               // return = TraficLightsWorker.TrafficLightsList.FirstOrDefault(e => e.Id == lastId);
-                var trLights = TraficLightsWorker.TrafficLightsList.FirstOrDefault(e => e.Id == lastId);
-                return new TrafficLightEntity() { Id = trLights.Id, Color = trLights.Color, Date = trLights.Date };
+                return trafficLightForService;
             }
-            var traficLightWithCurrentId = TraficLightsWorker.TrafficLightsList.FirstOrDefault(t => t.Id == id);
-            if (traficLightWithCurrentId != null)
+            var activeTafficLigthFromService = _trafficLightsService._activeTrafficLights.FirstOrDefault(t => t.Id == id);
+            if (activeTafficLigthFromService != null)
             {
-                _currentTrafficLight = traficLightWithCurrentId;
-                _traficLightsWorker.CurrentTrafficLight = _currentTrafficLight;
-                _traficLightsWorker.Activate();
-                return new TrafficLightEntity() { Id = _currentTrafficLight.Id, Color = _currentTrafficLight.Color, Date = _currentTrafficLight.Date };
+                return activeTafficLigthFromService;
             }
-            // return _currentTrafficLight;
-        
             else
             {
-                TraficLightsWorker.TrafficLightsList.Add(_currentTrafficLight);
-                _currentTrafficLight.Id = traficLightById.Id;
-                _traficLightsWorker.CurrentTrafficLight = _currentTrafficLight;
-                _traficLightsWorker.SetCurrentColorFromDBAsync(CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
-                _traficLightsWorker.Activate();
-                //return _currentTrafficLight;
-                return new TrafficLightEntity() { Id = _currentTrafficLight.Id, Color = _currentTrafficLight.Color, Date = _currentTrafficLight.Date }; ;
+                var trafficLigthForService = new TrafficLight() { Id = traficLightById.Id, Color = traficLightById.Color, Date = traficLightById.Date, IsSwitchingDown = default };
+                _trafficLightsService.AddTrafficLight(trafficLigthForService);
+                return traficLightById;
             }
         }
 

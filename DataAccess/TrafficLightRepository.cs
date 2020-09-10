@@ -21,21 +21,18 @@ namespace TraficLightsRazorPages.Data
         {
             return await _databaseContext.Lights.FirstOrDefaultAsync(l => l.Id == id, cancellationToken);
         }
-
-        // TODO there was public async void
         public async Task AddTrafficLightAsync(TrafficLightEntity traficLight, CancellationToken cancellationToken)
         {
             await _databaseContext.AddAsync(traficLight);
-            //TODO is it a good practice? 
             await _databaseContext.SaveChangesAsync(cancellationToken);
         }
         public async Task<int> GetMaxTraficLightsIdAsync(CancellationToken cancellationToken)
         {
             return await _databaseContext.Lights.MaxAsync(t => t.Id, cancellationToken);
         }
-        public IEnumerable<TrafficLightEntity> GetAllTraficLights()
+        public async Task<IEnumerable<TrafficLightEntity>> GetAllTraficLights()
         {
-            return _databaseContext.Lights;
+            return await Task.Run(() => _databaseContext.Lights);
         }
     }
 }

@@ -14,7 +14,7 @@ using TraficLightsRazorPages.Models.Interfaces;
 
 namespace TraficLightsRazorPages.Core.Workers
 {
-    public class TraficLightsWorker
+    public class TraficLightsWorkerOld
     {
         public static List<TrafficLight> TrafficLightsList = new List<TrafficLight>();
 
@@ -33,7 +33,7 @@ namespace TraficLightsRazorPages.Core.Workers
         private readonly TrafficLightRepository _repository;
 
         public event ChangeColorHandler Changes;
-        public TraficLightsWorker(IHubContext<TraficLightsHub> hubContext, IServiceProvider serviceProvider, IMediator mediator, TrafficLight trafficLight)
+        public TraficLightsWorkerOld(IHubContext<TraficLightsHub> hubContext, IServiceProvider serviceProvider, IMediator mediator, TrafficLight trafficLight)
         {
             _serviceProvider = serviceProvider.CreateScope().ServiceProvider;
             _lightsContext = _serviceProvider.GetRequiredService<TraficLightsContext>();
@@ -44,7 +44,7 @@ namespace TraficLightsRazorPages.Core.Workers
         }
         public void Activate()
         {
-            CurrentTrafficLight.ColorSwitchTimer = new Timer(SwitchNextColor, null, 0, Timeout.Infinite);
+           // CurrentTrafficLight.ColorSwitchTimer = new Timer(SwitchNextColor, null, 0, Timeout.Infinite);
             Changes += () => SaveCurrentTrafficLightToDBAsync(_serviceProvider, CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
             
         }
@@ -58,23 +58,23 @@ namespace TraficLightsRazorPages.Core.Workers
             if (CurrentTrafficLight.Color == Colors.Red)
             {
                 CurrentTrafficLight.Color = Colors.Yellow;
-                CurrentTrafficLight.ColorSwitchTimer.Change(1000, Timeout.Infinite);
+           //     CurrentTrafficLight.ColorSwitchTimer.Change(1000, Timeout.Infinite);
                 CurrentTrafficLight.IsSwitchingDown = true;
             }
             else if (CurrentTrafficLight.Color == Colors.Yellow && CurrentTrafficLight.IsSwitchingDown)
             {
-                CurrentTrafficLight.ColorSwitchTimer.Change(2000, Timeout.Infinite);
+            //    CurrentTrafficLight.ColorSwitchTimer.Change(2000, Timeout.Infinite);
                 CurrentTrafficLight.Color = Colors.Green;
                 CurrentTrafficLight.IsSwitchingDown = false;
             }
             else if (CurrentTrafficLight.Color == Colors.Yellow && !CurrentTrafficLight.IsSwitchingDown)
             {
-                CurrentTrafficLight.ColorSwitchTimer.Change(2000, Timeout.Infinite);
+               // CurrentTrafficLight.ColorSwitchTimer.Change(2000, Timeout.Infinite);
                 CurrentTrafficLight.Color = Colors.Red;
             }
             else if (CurrentTrafficLight.Color == Colors.Green)
             {
-                CurrentTrafficLight.ColorSwitchTimer.Change(1000, Timeout.Infinite);
+               // CurrentTrafficLight.ColorSwitchTimer.Change(1000, Timeout.Infinite);
                 CurrentTrafficLight.Color = Colors.Yellow;
             }
             try

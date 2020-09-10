@@ -45,9 +45,10 @@ namespace TrafficLightApi
             //services.AddTransient<TrafficLight>();
             services.AddScoped<TrafficLight>();
             services.AddScoped<TrafficLightRepository>();
-            services.AddScoped<TraficLightsWorker>();
+       //     services.AddScoped<TraficLightsWorker>();
             services.AddMediatR(Assembly.GetExecutingAssembly(), Assembly.Load(("TraficLightsRazorPages.Core")));
-
+            /*services.AddSingleton<IHostedService, Worker>();*/
+            services.AddSingleton<TrafficLightsService>();
             services.AddCors(options =>
             {
                 options.AddPolicy(name: MyAllowSpecificOrigins,

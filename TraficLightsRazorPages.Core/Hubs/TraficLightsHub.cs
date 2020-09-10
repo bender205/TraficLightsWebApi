@@ -11,18 +11,14 @@ namespace TraficLightsRazorPages.Core.Hubs
 {
     public class TraficLightsHub : Hub
     {
-        private readonly TrafficLight _trafficLight;
         private readonly IMediator _mediator;
 
-        public TraficLightsHub(TrafficLight trafficLight, IMediator mediator)
+        public TraficLightsHub(IMediator mediator)
         {
-            _trafficLight = trafficLight;
             _mediator = mediator;
         }
-
         public async Task SendColor()
         {      
-
            await _mediator.Send(new ChangeColorCommand());
         }
     }
